@@ -17,9 +17,11 @@ urlpatterns = [
     path('core/', include('core.urls')),
     #path('contact/', contact, name='contact'),
 
-    path('items/',include('item.urls')),
+    path('items/', include('item.urls')),
 
-    path('dashboard/', include('dashboard.urls'))
+    path('dashboard/', include('dashboard.urls')),
+
+    path('', include('myroot.urls')),
 ]
 
 if settings.DEBUG:

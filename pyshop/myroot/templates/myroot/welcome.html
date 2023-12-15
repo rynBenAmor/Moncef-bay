@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+    WELCOME | Home page
+{% endblock %}
+
+{% block content %}
+    <div class="bg-gray-800 text-white min-h-screen flex items-center justify-center">
+        <div class="text-center">
+            <h3 class="text-3xl font-semibold mb-4">Welcome to my first web application</h3>
+            <a href="{% url 'core:index' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block transition duration-300">Go to Main menu</a>
+        </div>
+    </div>
+{% endblock %}

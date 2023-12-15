@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'core',
     'item',
     'dashboard',
+    'myroot'
 ]
 
 MIDDLEWARE = [

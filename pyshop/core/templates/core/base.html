@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.tailwindcss.com">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    {% load static %}
+<!-- Favicon -->
+<link rel="icon" href="{% static 'images/favicon2.ico' %}" type="image/x-icon">
+
+
+    <title>WELCOME | {% block title %}{% endblock %}</title>
+</head>
+
+
+<body>
+    <header class="bg-blue-500 text-white py-4">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold">Welcome to Moncef-bay™️</h1>
+            <p class="text-lg">🌟Discover🌟 Delight🌟 Dazzle: the Best Deals Online</p>
+        </div>
+    </header>
+
+    <nav class="py-4 px-6 bg-gray-800 text-white border-b-2 border-gray-600">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'core:index' %}" class="text-2xl font-bold hover:text-gray-500">Browse Shop</a>
+
+        <ul class="space-x-6 flex">
+            {% if request.user.is_authenticated %}
+
+
+
+
+            <a href="{% url 'core:logout' %}" id="logout-button" style="color: yellow;">Logout 🔓</a>
+                    <script>
+                        const logoutButton = document.getElementById('logout-button');
+                        const username = '{{ request.user.username }}'; // Get the username from the Django context
+
+                        logoutButton.addEventListener('mouseover', () => {
+                            logoutButton.textContent = `Logged-in as ${username}`;
+                            logoutButton.style.color = 'cyan'; // Change text color to cyan
+                        });
+
+                        logoutButton.addEventListener('mouseout', () => {
+                            logoutButton.textContent = 'Logout 🔓';
+                            logoutButton.style.color = 'yellow'; // Revert text color to black
+                        });
+                    </script>
+
+
+
+                <a href="{% url 'item:new' %}" class="text-lg font-semi-bold hover:text-gray-500">Create New item ➕</a>
+
+
+                <li>
+                    <a href="#" class="text-lg text-teal-500 hover:text-teal-700 border border-teal-500 rounded-lg px-4 py-1">Inbox</a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:index' %}" class="text-lg text-teal-500 hover:text-teal-700 border border-teal-500 rounded-lg px-4 py-1">Dashboard</a>
+                </li>
+
+        {% else %}
+                <li>
+                    <a href="{% url 'core:login' %}" class="text-lg text-teal-500 hover:text-teal-700 border border-teal-500 rounded-lg px-4 py-1">Login</a>
+                </li>
+                <li>
+                    <a href="{% url 'core:signup' %}" class="text-lg text-teal-500 hover:text-teal-700 border border-teal-500 rounded-lg px-4 py-1">Sign-up</a>
+                </li>
+        {% endif %}
+
+    </ul>
+    </div>
+
+
+
+        <!-- search is bugged fix later maybe-->
+        <div class="input-group">
+        <div class="form-outline">
+            <input type="search" id="form1" class="form-control" />
+            <label class="form-label text-teal-500 hover:text-teal-700" for="form1">Search</label>
+        </div>
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+
+
+    </nav>
+
+
+    <div class="container mx-auto px-6 py-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+
+<footer class="px-6 py-6 flex justify-between bg-gray-800">
+    <div class="w-2/3 pr-10" >
+        <h3 class="mb-5 font-semi-bold text-gray-400">About</h3>
+        <p class="text-lg text-gray-300">"Moncef-bay is an e-commerce online shop with Django-Powered Web Development. (©️:Rayen ben amor Tic 3)"</p>
+    </div>
+
+    <div class="w-1/4 text-right">
+        <h3 class="mb-5 font-semi-bold text-gray-400">Menu</h3>
+        <ul class="space-y-2">
+            <li><a href="{% url 'products1:index' %}" class="text-white hover:text-green-500">Unclassified 🧅</a></li>
+            <li><a href="#" class=" px-8 text-white hover:text-cyan-500">Learn more</a></li>
+            <li><a href="#" class="text-white hover:text-cyan-500">Terms of Service</a></li>
+        </ul>
+
+    </div>
+</footer>
+
+
+</body>
+</html>

@@ -3,49 +3,41 @@
 {% block title %}CORE{% endblock %}
 
 {% block content %}
-    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-        <h2 class="mb-12 text-2xl text-center">Newest items!</h2>
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+    <h2 class="mb-12 text-2xl text-center">Newest items!</h2>
 
-        <div class="grid grid-cols-3 gap-3">
-            {% for item in items %}
-            <div>
-                <a href="{% url 'item:detail' item.id %}">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {% for item in items %}
+        <div class="flex flex-col">
+            <a href="{% url 'item:detail' item.id %}">
+                <div class="item-container relative">
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="rounded-t-xl border border-gray-300 shadow-md max-h-40 w-full object-cover">
 
-                    <div>
-                       <img src="{{ item.image.url }}" alt="{{ item.name }}" class="rounded-t-xl border border-gray-300 shadow-md" width="300" height="200">
-
-
-                    </div>
-
-                    <div class="p-6 bg-white rounded-b-xl" style="width: 300px;">
+                    <div class="p-6 bg-white rounded-b-xl flex-1">
                         <h2 class="text-2xl">{{ item.name }}</h2>
                         <p class="text-gray-500">Price: ${{ item.price }}</p>
                     </div>
-
-                </a>
-            </div>
-            {% endfor %}
+                </div>
+            </a>
         </div>
+        {% endfor %}
     </div>
+</div>
 
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-        <h2 class="mb-12 text-2xl text-center">All Categories</h2>
+    <h2 class="mb-12 text-2xl text-center">All Categories</h2>
 
-    <div class="grid grid-cols-3 gap-3">
-
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {% for cat in categories %}
-            <div>
-                <a href="#">
-
-                    <div class="p-6 bg-white rounded-b-xl" style="width: 300px;">
-                        <h2 class="text-2xl">{{ cat.name }}</h2>
-                        <p class="text-gray-500">{{ cat.items.count }} item(s) in stock</p>
-                    </div>
-
-                </a>
-            </div>
+        <div>
+            <a href="#">
+                <div class="p-6 bg-white rounded-b-xl">
+                    <h2 class="text-2xl">{{ cat.name }}</h2>
+                    <p class="text-gray-500">{{ cat.items.count }} item(s) in stock</p>
+                </div>
+            </a>
+        </div>
         {% endfor %}
-
     </div>
 </div>
 {% endblock %}

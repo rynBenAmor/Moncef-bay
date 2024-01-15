@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-7v14c3m+jur5t*(91=oyjg$ik_txhfjcd$e^afu83vv)*0@=ra
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','12b4-196-234-247-253.ngrok-free.app']
 
 
 # Application definition
@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'core',
     'item',
     'dashboard',
-    'myroot'
+    'myroot',
+    'notfound',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +63,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR,'templatesGeneraux')
+            os.path.join(BASE_DIR,'templates')
                  ],
         'APP_DIRS': True,
         'OPTIONS': {

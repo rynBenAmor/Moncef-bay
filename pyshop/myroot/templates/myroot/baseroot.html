@@ -1,25 +1,33 @@
 <!DOCTYPE html>
+<!--this exxists for now cuz it loads too much unused garbage except by myroot app-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="https://cdn.tailwindcss.com">
     <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS script -->
-
     {% load static %}
-
+    <!-- Preload logoIT.png because I'm very smart -->
+      <link rel="preload" href="{% static 'images/logoSHI.png' %}" as="image">
+     <link rel="preload" href="{% static 'images/logoSH1.png' %}" as="image">
     <!-- Favicon -->
     <link rel="icon" href="{% static 'images/favicon3.ico' %}" type="image/x-icon">
-    <!-- Apple Touch Icon -->
-    <!--link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}"-->
+
     <!-- Custom CSS for Background Image -->
     <style>
         body {
             background-image: url("{% static 'images/background3.jpg' %}");
             background-size: cover;
         }
+        /* Hide the modal initially */
+        #guestModeModal {
+            display: none;
+        }
     </style>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <style>
     .bg-gray-800 {
@@ -33,7 +41,9 @@
         left: 0;
         right: 0;
         bottom: 0;
+
         background-image: url('{% static "images/business2.png" %}');
+
         opacity: 0.5; /* Adjust for desired transparency */
         z-index: 1; /* Ensure it's above the background but below the content */
     }
@@ -80,14 +90,13 @@
         </div>
     </nav>
 
- <!-- Main Content -->
-<div class="mx-auto sm:px-6 py-8"> <!-- Only add horizontal padding on larger screens -->
-    <div class="bg-white p-6 rounded-lg shadow-md">
+    <!-- Main Content -->
+<div class="sm:mx-auto sm:px-6 py-8"> <!-- Only center and add horizontal padding on larger screens -->
+    <div class="bg-white p-2 sm:p-6 rounded-lg shadow-md"> <!-- Less padding on smaller screens -->
         {% block content %}
         {% endblock %}
     </div>
 </div>
-
 
 
     <!-- Footer -->
@@ -109,7 +118,63 @@
     </footer>
 
 
- <script>
+ <!-- Modal -->
+<div class="modal fade" id="guestModeModal" tabindex="-1" role="dialog" aria-labelledby="guestModeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="guestModeModalLabel">Friendly reminder🥺🙏: Guest Mode</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You are in Guest mode now. Please log in to access full features(creating/editing...).<br>
+                Feel free to use a fake email address for testing purposes
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal" style="background-color: #007bff; color: white; border-radius: 5px;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts for Modal and Logout Button -->
+    <script>
+        // JavaScript for dynamically adding/removing Bootstrap CSS
+        function addBootstrapCSS() {
+            const link = document.createElement('link');
+            link.href = 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css';
+            link.rel = 'stylesheet';
+            link.id = 'bootstrap-css';
+            document.head.appendChild(link);
+        }
+
+        function removeBootstrapCSS() {
+            const link = document.getElementById('bootstrap-css');
+            if (link) {
+                document.head.removeChild(link);
+            }
+        }
+
+        $(document).ready(function() {
+            $('#guestModeModal').on('show.bs.modal', function (e) {
+                addBootstrapCSS();
+            });
+
+            $('#guestModeModal').on('hidden.bs.modal', function (e) {
+                removeBootstrapCSS();
+            });
+
+            {% if not request.user.is_authenticated %}
+                if (!sessionStorage.getItem('guestModalShown')) {
+                    setTimeout(function() {
+                        $('#guestModeModal').modal('show');
+                        sessionStorage.setItem('guestModalShown', 'true');
+                    }, 2000);
+                }
+            {% endif %}
+        });
 
         // JavaScript for Logout Button Behavior
         const logoutButton = document.getElementById('logout-button');

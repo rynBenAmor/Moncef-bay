@@ -3,7 +3,7 @@
 {% block title %}CORE{% endblock %}
 
 {% block content %}
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+<div class="mt-6 px-4 sm:px-6 py-12 bg-gray-100 rounded-xl"> <!-- Reduced padding on x-axis for smaller screens -->
     <h2 class="mb-12 text-2xl text-center">Newest items!</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -13,7 +13,7 @@
                 <div class="item-container relative">
                     <img src="{{ item.image.url }}" alt="{{ item.name }}" class="rounded-t-xl border border-gray-300 shadow-md max-h-40 w-full object-cover">
 
-                    <div class="p-6 bg-white rounded-b-xl flex-1">
+                    <div class="p-4 sm:p-6 bg-white rounded-b-xl flex-1">
                         <h2 class="text-2xl">{{ item.name }}</h2>
                         <p class="text-gray-500">Price: ${{ item.price }}</p>
                     </div>
@@ -24,14 +24,14 @@
     </div>
 </div>
 
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+<div class="mt-6 px-2 sm:px-6 py-12 bg-gray-100 rounded-xl">
     <h2 class="mb-12 text-2xl text-center">All Categories</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {% for cat in categories %}
         <div>
             <a href="#">
-                <div class="p-6 bg-white rounded-b-xl">
+                <div class="p-4 sm:p-6 bg-white rounded-b-xl">
                     <h2 class="text-2xl">{{ cat.name }}</h2>
                     <p class="text-gray-500">{{ cat.items.count }} item(s) in stock</p>
                 </div>

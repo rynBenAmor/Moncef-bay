@@ -3,47 +3,105 @@
 {% block title %}Sign up{% endblock %}
 
 {% block content %}
-    <div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
+    <style>
+         /* Custom Button Styles */
+ .bn39 {
+	padding: 0.6em 2em;
+	border: none;
+	outline: none;
+	color: rgb(255, 255, 255);
+	background: #32c7f5;
+	cursor: pointer;
+	position: relative;
+	z-index: 0;
+	border-radius: 10px;
+}
+
+.bn39:before {
+	content: "";
+	background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	background-size: 400%;
+	z-index: -1;
+	filter: blur(5px);
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	animation: glowingbn39 20s linear infinite;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+	border-radius: 10px;
+}
+
+@keyframes glowingbn39 {
+	0% { background-position: 0 0; }
+	50% { background-position: 400% 0; }
+	100% { background-position: 0 0; }
+}
+
+.bn39:active {
+	color: #32c7f5;
+}
+
+.bn39:active:after {
+	background: transparent;
+}
+
+.bn39:hover:before {
+	opacity: 1;
+}
+
+.bn39:after {
+	z-index: -1;
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #3300ff;
+	left: 0;
+	top: 0;
+	border-radius: 10px;
+}
+    </style>
+
+    <div class="text-white w-1/2 my-6 mx-auto p-6 bg-slate-700 rounded-xl">
         <h1 class="mb-6 text-3xl">Sign up</h1>
 
         <form method="post" action=".">
             {% csrf_token %}
-<!-- fo context form.field_name is an instance of SignupForm() in views already established -->
             {{ form.non_field_errors }}
-          <div class="mb-3">
-            <label class="inline-block mb-2">Username</label><br>
-              {{ form.username }}
-          </div>
+            
+            <div class="mb-3">
+                <label class="inline-block mb-2">Username</label><br>
+                {{ form.username }}
+            </div>
 
-          <div class="mb-3">
-            <label class="inline-block mb-2">E-mail</label><br>
-              {{ form.email }}
-          </div>
+            <div class="mb-3">
+                <label class="inline-block mb-2">E-mail</label><br>
+                {{ form.email }}
+            </div>
 
-          <div class="mb-3">
-            <label class="inline-block mb-2">Password</label><br>
-              {{ form.password1 }}
-          </div>
+            <div class="mb-3">
+                <label class="inline-block mb-2">Password</label><br>
+                {{ form.password1 }}
+            </div>
 
-          <div class="mb-3">
-            <label class="inline-block mb-2">Repeat password</label><br>
-              {{ form.password2 }}
-          </div>
+            <div class="mb-3">
+                <label class="inline-block mb-2">Repeat password</label><br>
+                {{ form.password2 }}
+            </div>
 
-               {% if form.errors or form.non_field_errors %}
+            {% if form.errors or form.non_field_errors %}
                 <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                  {% for field in form %}
-                    {{ field.errors }}
-                  {% endfor %}
+                    {% for field in form %}
+                        {{ field.errors }}
+                    {% endfor %}
                 </div>
-              {% endif %}
+            {% endif %}
 
-
-          <button class="py-4 mx-auto px-8 text-lg bg-blue-500 hover:bg-blue-800 rounded-xl text-white">Register</button>
-
+            <button class="bn39">Register</button> <!-- Updated button class -->
 
         </form>
     </div>
-
-
 {% endblock %}

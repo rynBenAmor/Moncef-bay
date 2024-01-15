@@ -1,18 +1,151 @@
-<{% extends 'core/base.html' %}
+{% extends 'myroot/baseroot.html' %}
+
+{% load static %}
 
 {% block title %}
     Home page
 {% endblock %}
 
-{% block content %}
-    <div class="bg-gray-800 text-white min-h-screen flex items-center justify-center">
-        <div class="text-center">
-            <h3 class="text-3xl font-semibold mb-4">Welcome to my first web application</h3>
-            <a href="{% url 'core:index' %}" class="relative inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out">
 
-                Go to Main menu
-            </a>
+{% block content %}
+
+<div class="bg-gray-800 text-white min-h-screen flex items-center justify-center mx-auto sm:px-6 py-8">
+    <div class="text-center px-0 md:px-6">
+        <h3 class="text-3xl font-semibold mb-4">Welcome to my first web application</h3>
+
+            <style>
+                /* Normal Spin Animation */
+                @keyframes normalSpin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+
+                /* Fast Spin Animation */
+                @keyframes fastSpin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+
+                /* Logo CSS */
+                .logo-spin {
+                    display: inline-block;
+                    animation: normalSpin 4s linear infinite;
+                    width: 60px;
+                    height: auto;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    transition: filter 0.3s ease-in-out;
+                }
+                .logo-blur {
+                    filter: blur(7px); /* Apply blur */
+                }
+
+                /* Fast Spin with Shadow */
+                .logo-spin-fast {
+                    animation: fastSpin 1.1s linear 1, glowingShadow 5s linear infinite;
+                }
+
+                /* Shadow Keyframes RGB DISABLED FOR NOW*/
+                @keyframes glowingShadow {
+                  /* 0%, 100% { box-shadow: 0px 0px 20px 10px rgba(255, 0, 0, 0.6); }
+                    14% { box-shadow: 0px 0px 20px 10px rgba(255, 73, 0, 0.6); }
+                    28% { box-shadow: 0px 0px 20px 10px rgba(255, 255, 0, 0.6); }
+                    42% { box-shadow: 0px 0px 20px 10px rgba(0, 255, 0, 0.6); }
+                    57% { box-shadow: 0px 0px 20px 10px rgba(0, 255, 255, 0.6); }
+                    71% { box-shadow: 0px 0px 20px 10px rgba(0, 0, 255, 0.6); }
+                    85% { box-shadow: 0px 0px 20px 10px rgba(255, 0, 255, 0.6); } */
+
+                    0%, 100% { box-shadow: 0px 0px 20px 10px rgba(255, 0, 0, 0.6); } /* Blood red */
+
+
+                }
+
+               /* Custom Button Styles */
+                .bn39 {
+                    padding: 0.6em 2em;
+                    border: none;
+                    outline: none;
+                    color: rgb(255, 255, 255);
+                    background: #111;
+                    cursor: pointer;
+                    position: relative;
+                    z-index: 0;
+                    border-radius: 10px;
+                }
+
+                .bn39:before {
+                    content: "";
+                    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+                    position: absolute;
+                    top: -2px;
+                    left: -2px;
+                    background-size: 400%;
+                    z-index: -1;
+                    filter: blur(5px);
+                    width: calc(100% + 4px);
+                    height: calc(100% + 4px);
+                    animation: glowingbn39 20s linear infinite;
+                    opacity: 0;
+                    transition: opacity 0.3s ease-in-out;
+                    border-radius: 10px;
+                }
+
+                @keyframes glowingbn39 {
+                    0% { background-position: 0 0; }
+                    50% { background-position: 400% 0; }
+                    100% { background-position: 0 0; }
+                }
+
+                .bn39:active {
+                    color: #000;
+                }
+
+                .bn39:active:after {
+                    background: transparent;
+                }
+
+                .bn39:hover:before {
+                    opacity: 1;
+                }
+
+                .bn39:after {
+                    z-index: -1;
+                    content: "";
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: #191919;
+                    left: 0;
+                    top: 0;
+                    border-radius: 10px;
+                }
+            </style>
+
+           <img src="{% static 'images/logoSH1.png' %}" class="logo-spin mb-4" id="logo" alt="Spinning Logo">
+            <a class="bn39" href="{% url 'core:index' %}" onmouseover="handleHover(true)" onmouseout="handleHover(false)">Go to Main menu</a>
         </div>
     </div>
+
+    <script>
+    function handleHover(isHovering) {
+        const logo = document.getElementById('logo');
+        if (isHovering) {
+            // Add blur and fast spin with shadow
+            logo.classList.add('logo-blur', 'logo-spin-fast');
+            setTimeout(() => {
+                logo.src = '{% static 'images/logoSHI.png' %}'; // Change to logoIT.png
+                logo.classList.remove('logo-blur'); // Remove blur after the transition
+            }, 300); // Match this delay with CSS transition duration
+        } else {
+            // Add blur
+            logo.classList.add('logo-blur');
+            setTimeout(() => {
+                logo.src = '{% static 'images/logoSH1.png' %}'; // Change back to logoSH.png
+                logo.classList.remove('logo-blur', 'logo-spin-fast'); // Remove blur and stop fast spin
+            }, 300); // Match this delay with CSS transition duration
+        }
+    }
+</script>
+
+
 {% endblock %}
->
